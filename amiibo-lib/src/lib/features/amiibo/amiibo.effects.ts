@@ -18,8 +18,7 @@ export class AmiiboEffects {
   amiibosService: AmiiboService = inject(AmiiboService);
   snackbar: MatSnackBar = inject(MatSnackBar);
   router: Router = inject(Router);
-
-  constructor(private actions$: Actions) {}
+  actions$ = inject(Actions);
 
   loadAmiibo$ = createEffect(
     () =>

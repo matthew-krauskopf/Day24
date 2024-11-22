@@ -21,8 +21,7 @@ export class AuthEffects {
   authService: AuthService = inject(AuthService);
   localStorage: StoreService = inject(StoreService);
   snackbar: MatSnackBar = inject(MatSnackBar);
-
-  constructor(private actions$: Actions) {}
+  actions$ = inject(Actions);
 
   login$ = createEffect(() =>
     this.actions$.pipe(

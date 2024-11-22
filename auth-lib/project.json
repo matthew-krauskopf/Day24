@@ -25,14 +25,15 @@
         "outputPath": "dist/auth-lib",
         "outputFileName": "main.js",
         "tsConfig": "auth-lib/tsconfig.lib.json",
+        "platform": "node",
+        "format": ["esm"],
         "assets": [
           {
             "glob": "auth-lib/README.md",
             "input": ".",
             "output": "."
           }
-        ],
-        "platform": "node"
+        ]
       },
       "configurations": {
         "development": {
