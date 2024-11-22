@@ -8,6 +8,34 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "main": "amiibo-lib/src/index.ts",
+        "outputPath": "dist/amiibo-lib",
+        "outputFileName": "main.js",
+        "tsConfig": "amiibo-lib/tsconfig.lib.json",
+        "platform": "node",
+        "format": ["esm"],
+        "assets": [
+          {
+            "glob": "amiibo-lib/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      },
+      "configurations": {
+        "development": {
+          "minify": false
+        },
+        "production": {
+          "minify": true
+        }
+      }
     }
   }
 }

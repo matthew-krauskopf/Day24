@@ -1,0 +1,17 @@
+<div class="bg-white pad-x-5 w-full flex justify-between items-center border-b">
+  <div>
+    <img class="h-16" src="{{ logo }}" />
+  </div>
+  <div>
+    <span class="text-purple text-3xl">Amiibo Source</span>
+  </div>
+  <div>
+    <button
+      mat-flat-button
+      (click)="authFacade.logout()"
+      class="flex justify-center items-center profile-button"
+    >
+      <span>Logout</span>
+    </button>
+  </div>
+</div>
