@@ -13,6 +13,7 @@ export interface Amiibo {
   };
   tail: string;
   type: string;
+  key: string;
 
   deleted?: boolean;
 }

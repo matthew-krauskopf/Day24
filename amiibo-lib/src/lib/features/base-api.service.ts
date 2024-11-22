@@ -10,7 +10,7 @@ export abstract class BaseAPIService {
 
   constructor() {}
 
-  baseUrl: string = 'https://json-server-vercel-ebon.vercel.app';
+  baseUrl: string = 'https://www.amiiboapi.com/api/';
 
   protected performGet<T>(
     endpoint: string,
