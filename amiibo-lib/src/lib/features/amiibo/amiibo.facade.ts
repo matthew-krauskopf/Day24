@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  addAmiibo,
-  deleteAmiibo,
-  loadAmiibo,
-  loadAmiibos,
-  updateAmiibo,
-} from './amiibo.actions';
+import { deleteAmiibo, loadAmiibo, loadAmiibos } from './amiibo.actions';
 import {
   amiiboCount,
   isProcessing,
   selectAmiibos,
   selectedAmiibo,
 } from './amiibo.selectors';
+import { Amiibo } from './amiibo.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -30,23 +25,15 @@ export class AmiiboFacade {
     this.isProcessing$ = this.store.select(isProcessing);
   }
 
-  loadAmiibo(id: number) {
-    this.store.dispatch(loadAmiibo({ id }));
+  loadAmiibo(head: string, tail: string) {
+    this.store.dispatch(loadAmiibo({ head, tail }));
   }
 
   loadAmiibos() {
     this.store.dispatch(loadAmiibos());
   }
 
-  deleteAmiibo(id: number) {
-    this.store.dispatch(deleteAmiibo({ id }));
-  }
-
-  updateAmiibo(name: string, age: number, species: string) {
-    this.store.dispatch(updateAmiibo({ name, age, species }));
-  }
-
-  addAmiibo() {
-    this.store.dispatch(addAmiibo());
+  deleteAmiibo(amiibo: Amiibo) {
+    this.store.dispatch(deleteAmiibo({ head: amiibo.head, tail: amiibo.tail }));
   }
 }

@@ -1,24 +1,18 @@
 import { logout } from '@day24/auth-lib';
 import { createReducer, on } from '@ngrx/store';
 import {
-  addAmiibo,
   deleteAmiibo,
   loadAmiibo,
   loadAmiibos,
   loadAmiibosFail,
   loadAmiibosSuccess,
-  updateAmiibo,
 } from './amiibo.actions';
 import { Amiibo } from './amiibo.entity';
-import {
-  addAmiiboUtil,
-  deleteAmiiboUtil,
-  updateAmiiboUtil,
-} from './amiibo.utils';
+import { deleteAmiiboUtil } from './amiibo.utils';
 
 export interface AmiiboState {
   amiibos: Amiibo[];
-  selectedAmiibo?: number;
+  selectedAmiibo?: string;
   isLoading: boolean;
   isSaving: boolean;
   isDeleting: boolean;
@@ -35,9 +29,9 @@ export const amiiboKey = 'amiibo';
 
 export const amiiboReducer = createReducer(
   amiiboState,
-  on(loadAmiibo, (state, { id }) => ({
+  on(loadAmiibo, (state, { head, tail }) => ({
     ...state,
-    selectedAmiibo: id,
+    selectedAmiibo: head + tail,
   })),
   on(loadAmiibos, (state) => ({
     ...state,
@@ -56,22 +50,8 @@ export const amiiboReducer = createReducer(
     ...state,
     amiibos: [],
   })),
-  on(deleteAmiibo, (state, { id }) => ({
+  on(deleteAmiibo, (state, { head, tail }) => ({
     ...state,
-    amiibos: deleteAmiiboUtil(state.amiibos, id),
-  })),
-  on(updateAmiibo, (state, { name, age, species }) => ({
-    ...state,
-    amiibos: updateAmiiboUtil(
-      state.amiibos,
-      state.selectedAmiibo,
-      name,
-      age,
-      species
-    ),
-  })),
-  on(addAmiibo, (state) => ({
-    ...state,
-    amiibos: addAmiiboUtil(state.amiibos),
+    amiibos: deleteAmiiboUtil(state.amiibos, head, tail),
   }))
 );

@@ -1,10 +1,18 @@
 export interface Amiibo {
-  id: number;
-  type: string;
+  amiiboSeries: string;
+  character: string;
+  gameSeries: string;
+  head: string;
+  image: string;
   name: string;
-  age: number;
+  release: {
+    au: string;
+    eu: string;
+    jp: string;
+    na: string;
+  };
+  tail: string;
+  type: string;
 
   deleted?: boolean;
-  photo?: string;
-  inMemory?: boolean;
 }

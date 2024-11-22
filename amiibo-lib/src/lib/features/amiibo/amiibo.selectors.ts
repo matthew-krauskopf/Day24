@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { amiiboKey, AmiiboState } from './amiibo.state';
-import { mapPhotos } from './amiibo.utils';
 
 export const selectAmiiboState = createFeatureSelector<AmiiboState>(amiiboKey);
 
@@ -10,20 +9,18 @@ export const selectedAmiiboId = createSelector(
 );
 
 export const selectAmiibos = createSelector(selectAmiiboState, (amiiboState) =>
-  mapPhotos(amiiboState.amiibos.filter((p) => !p.deleted)).sort(
-    (a, b) => a.id - b.id
-  )
+  amiiboState.amiibos.filter((a) => !a.deleted)
 );
 
 export const amiiboCount = createSelector(
   selectAmiiboState,
-  (state) => state.amiibos.filter((p) => !p.deleted).length
+  (state) => state.amiibos.filter((a) => !a.deleted).length
 );
 
 export const selectedAmiibo = createSelector(
   selectedAmiiboId,
   selectAmiibos,
-  (amiiboId, allAmiibos) => allAmiibos.find((p) => p.id == amiiboId)
+  (amiiboId, allAmiibos) => allAmiibos.find((a) => a.head + a.tail === amiiboId)
 );
 
 export const isProcessing = createSelector(

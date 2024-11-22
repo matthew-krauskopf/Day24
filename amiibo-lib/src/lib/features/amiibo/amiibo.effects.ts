@@ -5,12 +5,10 @@ import { loginSuccessful } from '@day24/auth-lib';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import {
-  addAmiibo,
   deleteAmiibo,
   loadAmiibo,
   loadAmiibosFail,
   loadAmiibosSuccess,
-  updateAmiibo,
 } from './amiibo.actions';
 import { Amiibo } from './amiibo.entity';
 import { AmiiboService } from './amiibo.service';
@@ -28,7 +26,11 @@ export class AmiiboEffects {
       this.actions$.pipe(
         ofType(loadAmiibo),
         tap((payload) =>
-          this.router.navigate(['dashboard', 'amiibos', payload.id])
+          this.router.navigate([
+            'dashboard',
+            'amiibos',
+            payload.head + payload.tail,
+          ])
         )
       ),
     { dispatch: false }
@@ -63,31 +65,31 @@ export class AmiiboEffects {
     { dispatch: false }
   );
 
-  addAmiibo$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(addAmiibo),
-        map(() =>
-          this.snackbar.open('Amiibo successfully created', 'Dismiss', {
-            duration: 5000,
-          })
-        )
-      ),
-    { dispatch: false }
-  );
+  //addAmiibo$ = createEffect(
+  //  () =>
+  //    this.actions$.pipe(
+  //      ofType(addAmiibo),
+  //      map(() =>
+  //        this.snackbar.open('Amiibo successfully created', 'Dismiss', {
+  //          duration: 5000,
+  //        })
+  //      )
+  //    ),
+  //  { dispatch: false }
+  //);
 
-  updateAmiibo$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(updateAmiibo),
-        map(() =>
-          this.snackbar.open('Amiibo successfully updated', 'Dismiss', {
-            duration: 5000,
-          })
-        )
-      ),
-    { dispatch: false }
-  );
+  //updateAmiibo$ = createEffect(
+  //  () =>
+  //    this.actions$.pipe(
+  //      ofType(updateAmiibo),
+  //      map(() =>
+  //        this.snackbar.open('Amiibo successfully updated', 'Dismiss', {
+  //          duration: 5000,
+  //        })
+  //      )
+  //    ),
+  //  { dispatch: false }
+  //);
 
   deleteAmiibo$ = createEffect(
     () =>
@@ -98,15 +100,6 @@ export class AmiiboEffects {
             duration: 5000,
           })
         )
-      ),
-    { dispatch: false }
-  );
-
-  routeToAmiiboList$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(deleteAmiibo, updateAmiibo),
-        tap(() => this.router.navigate(['dashboard', 'amiibos']))
       ),
     { dispatch: false }
   );
